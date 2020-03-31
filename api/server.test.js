@@ -1,7 +1,7 @@
 require('dotenv').config();
 const request = require('supertest');
 
-const server = require('../api/server.js');
+const server = require('./server.js');
 
 describe('server', () => {
   it('should use the testing environment', () => {
@@ -13,7 +13,7 @@ describe('server', () => {
       const res = await request(server).get('/');
       expect(res.status).toBe(200);
     });
-    
+
     it('should return a JSON object', async () => {
       const res = await request(server).get('/');
       expect(res.type).toMatch(/json/i);
