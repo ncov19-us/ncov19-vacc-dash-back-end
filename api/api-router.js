@@ -14,8 +14,8 @@ router.get('/totals', async (req, res) => {
 
   try {
     let vaccines = [0, 0, 0, 0, 0];
-    let treatments = [ 0, 0, 0, 0, 0];
-    let alternatives = [ 0, 0, 0, 0, 0];
+    let treatments = [0, 0, 0, 0, 0];
+    let alternatives = [0, 0, 0, 0, 0];
 
     for (let i = 0; i < 5; i++) {
       // Make a database count request for each of these,
@@ -25,14 +25,13 @@ router.get('/totals', async (req, res) => {
     }
 
     const totals = {
-      countries: countries || 'world', 
-      vaccines: vaccines.map(obj => obj.num),
-      treatments: treatments.map(obj => obj.num),
-      alternatives: alternatives.map(obj => obj.num),
+      countries: countries || 'world',
+      vaccines: vaccines.map((obj) => obj.num),
+      treatments: treatments.map((obj) => obj.num),
+      alternatives: alternatives.map((obj) => obj.num),
     };
 
     res.status(200).json(totals);
-
   } catch ({ message }) {
     res.status(500).json({ error: 'Failed to get totals.', message });
   }
