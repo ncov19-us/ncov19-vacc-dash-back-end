@@ -4,6 +4,7 @@ const db = require('./db-config');
 module.exports = {
   findBy,
   getCount,
+  getCountPhase,
 };
 
 function findBy(table, countries) {
@@ -16,15 +17,35 @@ function findBy(table, countries) {
   return [];
 }
 
-// FIXME: Knex counting doesn't work.
-function getCount(table, country) {
+function getCount(table, countries) {
   if (table) {
-    if (country) {
-      // return db(table).where({ country }).count('id');
-      return 6;
+    if (countries) {
+      return db(table).where({ countries }).count('*').first();
     }
-    // return db(table).select('id').count();
-    return 12;
+    return db(table).count('*').first();
+  }
+  return 0;
+}
+
+function getCountPhase(table, countries, phase) {
+  if (table) {
+    if (countries) {
+      if (phase === 0) {
+        return db(table)
+          .where({ countries: countries })
+          .whereNull('phase_num')
+          .count('* as num')
+          .first();
+      }
+      return db(table)
+        .where({ countries: countries, phase_num: phase })
+        .count('* as num')
+        .first();
+    }
+    if (phase === 0) {
+      return db(table).whereNull('phase_num').count('* as num').first();
+    }
+    return db(table).where({ phase_num: phase }).count('* as num').first();
   }
   return 0;
 }
