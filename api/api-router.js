@@ -9,29 +9,32 @@ router.get('/', (req, res) => {
   res.status(418).json({ message: 'API Router works' });
 });
 
-// FIXME: Serving dummy data.
-router.get('/totals', (req, res) => {
-  const { country } = req.query;
-  let vaccines = [0, 0, 0, 0];
-  let treatments = [0, 0, 0, 0];
-  let alternatives = [0, 0, 0, 0];
-  const test = db.getCount(vaccines, country);
-  console.log('test =', test);
+router.get('/totals', async (req, res) => {
+  const { countries } = req.query;
 
-  for (let i = 0; i < 4; i++) {
-    // Make a database count request for each of these,
-    // Query { type: vaccine, phase: i, country: country }
-    vaccines[i] = i; // FIXME
-    treatments[i] = 2 * i; // FIXME
-    alternatives[i] = 3 * i; // FIXME
+  try {
+    let vaccines = [0, 0, 0, 0, 0];
+    let treatments = [0, 0, 0, 0, 0];
+    let alternatives = [0, 0, 0, 0, 0];
+
+    for (let i = 0; i < 5; i++) {
+      // Make a database count request for each of these,
+      vaccines[i] = await db.getCountPhase('vaccines', countries, i);
+      treatments[i] = await db.getCountPhase('treatments', countries, i);
+      alternatives[i] = await db.getCountPhase('alternatives', countries, i);
+    }
+
+    const totals = {
+      countries: countries || 'world',
+      vaccines: vaccines.map((obj) => obj.num),
+      treatments: treatments.map((obj) => obj.num),
+      alternatives: alternatives.map((obj) => obj.num),
+    };
+
+    res.status(200).json(totals);
+  } catch ({ message }) {
+    res.status(500).json({ error: 'Failed to get totals.', message });
   }
-
-  res.status(200).json({
-    country: country || 'world',
-    vaccines,
-    treatments,
-    alternatives,
-  });
 });
 
 router.get('/trials', (req, res) => {
