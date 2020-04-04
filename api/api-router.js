@@ -1,6 +1,10 @@
 const router = require('express').Router();
 const db = require('../data/model.js');
 
+const mapRouter = require('../map/map-router.js');
+
+router.use('/map', mapRouter);
+
 router.get('/', (req, res) => {
   res.status(418).json({ message: 'API Router works' });
 });
