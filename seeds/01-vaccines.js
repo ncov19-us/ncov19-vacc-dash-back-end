@@ -7,6 +7,6 @@ exports.seed = function (knex) {
     .del()
     .then(function () {
       // need to batch insert due to large amount of rows
-      return knex.batchInsert('treatments', treatmentData, chunkSize);
+      return knex.batchInsert('vaccines', treatmentData, chunkSize);
     });
 };

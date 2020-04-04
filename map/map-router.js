@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
         // currently: do not count if country is null or multiple
         mapValues.set(trial.id, {
           value: 1,
-          country: trial.country,
+          country: trial.countries,
           id: trial.id,
         });
       }
@@ -45,7 +45,7 @@ router.get('/', async (req, res) => {
         // currently: do not count if country is null or multiple
         mapValues.set(trial.id, {
           value: 1,
-          country: trial.country,
+          country: trial.countries,
           id: trial.id,
         });
       }
@@ -60,7 +60,7 @@ router.get('/', async (req, res) => {
         // currently: do not count if country is null or multiple
         mapValues.set(trial.id, {
           value: 1,
-          country: trial.country,
+          country: trial.countries,
           id: trial.id,
         });
       }
