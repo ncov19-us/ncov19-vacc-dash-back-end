@@ -1,8 +1,8 @@
 exports.up = function (knex) {
   return knex.schema.createTable('vaccines', (tbl) => {
     tbl.increments();
-    tbl.string('countries').notNullable();
-    tbl.string('country_codes').notNullable();
+    tbl.string('countries');
+    tbl.string('country_codes');
     tbl.string('data_reference');
     tbl.string('data_source');
     tbl.string('enrollment_date');

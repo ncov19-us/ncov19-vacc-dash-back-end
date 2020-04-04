@@ -1,12 +1,12 @@
-const fs = require('fs');
+const treatmentData = require('./vaccines.json');
+
+const chunkSize = 30;
 
 exports.seed = function (knex) {
-  const rawdata = fs.readFileSync('./vaccines.json');
-  const trials = JSON.parse(rawdata);
-
   return knex('vaccines')
     .del()
     .then(function () {
-      return knex('vaccines').insert(trials);
+      // need to batch insert due to large amount of rows
+      return knex.batchInsert('treatments', treatmentData, chunkSize);
     });
 };

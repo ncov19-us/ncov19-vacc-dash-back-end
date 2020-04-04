@@ -31,13 +31,13 @@ router.get('/totals', (req, res) => {
 });
 
 router.get('/trials', (req, res) => {
-  const { type, country, max, page } = req.query;
+  const { type, countries, max, page } = req.query;
 
   if (type !== 'vaccines' && type !== 'treatments' && type !== 'alternatives') {
     res.status(400).json({ message: 'No valid trial type specified.' });
   }
 
-  db.findBy(type, country)
+  db.findBy(type, countries)
     .then((info) => {
       res.status(200).json(info);
     })

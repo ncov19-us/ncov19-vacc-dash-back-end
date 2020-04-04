@@ -6,10 +6,10 @@ module.exports = {
   getCount,
 };
 
-function findBy(table, country) {
+function findBy(table, countries) {
   if (table) {
-    if (country) {
-      return db(table).where({ country });
+    if (countries) {
+      return db(table).where({ countries });
     }
     return db(table);
   }

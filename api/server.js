@@ -2,7 +2,6 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const axios = require('axios');
-const fs = require('fs'); // Used for mock data only
 
 const server = express();
 const apiRouter = require('./api-router.js');
@@ -31,15 +30,6 @@ server.get('/axios', (req, res) => {
     });
 
   res.status(200).json({ message: 'ET phone home.' });
-});
-
-// MOCK DATA endpoint
-// Returns contents of external json file.
-const rawdata = fs.readFileSync('./vaccines.json');
-const trials = JSON.parse(rawdata);
-
-server.get('/dummy', (req, res) => {
-  res.status(200).json(trials);
 });
 
 module.exports = server;
