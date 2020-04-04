@@ -35,7 +35,7 @@ server.get('/axios', (req, res) => {
 
 // MOCK DATA endpoint
 // Returns contents of external json file.
-const rawdata = fs.readFileSync('./dummy_data/50_entries.json');
+const rawdata = fs.readFileSync('./vaccines.json');
 const trials = JSON.parse(rawdata);
 
 server.get('/dummy', (req, res) => {
