@@ -47,7 +47,7 @@ router.get('/trials', (req, res) => {
   const page = parseInt(req.query.page, 10);
   const limit = parseInt(req.query.limit, 10);
 
-  if (type !== 'vaccines' && type !== 'treatments' && type !== 'alternatives') {
+  if (type !== 'vaccines' && type !== 'treatments' && type !== 'alternatives' && type !== undefined) {
     res.status(400).json({ message: 'No valid trial type specified.' });
   }
 
@@ -85,34 +85,6 @@ router.get('/trials', (req, res) => {
     .catch((err) => {
       res.status(500).json(err.message);
     });
-});
-*/
-
-router.get('/trials', pagination, async (req, res) => {
-  const { type, countries, page } = req.query;
-
-  try {
-    if (type === undefined) {
-      console.log('page is', req.page, 'offset is', req.skip);
-      console.log('count is', req.count);
-
-      const vaccines = await db.findBy('vaccines', countries);
-      res.status(200).json({ results: vaccines });
-    } else if (
-      type !== 'vaccines' &&
-      type !== 'treatments' &&
-      type !== 'alternatives'
-    ) {
-      res.status(400).json({ message: 'No valid trial type specified.' });
-    } else {
-      db.findBy(type, countries)
-        .then((info) => {
-          res.status(200).json(info);
-        })
-    }
-  } catch ({ message }) {
-    res.status(500).json({ error: 'Failed to get trials.', message });
-  }
 });
 
 module.exports = router;

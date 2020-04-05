@@ -14,7 +14,19 @@ function findBy(table, countries) {
     }
     return db(table);
   }
-  return [];
+
+  // array of Promises
+  let tables = [db('vaccines'), db('treatments'), db('alternatives')];
+
+  if (table === undefined && countries) {
+    tables = tables.map((table) => table.where({ countries }));
+  }
+
+  return Promise.all(tables).then((res) => {
+    const [vaccines, treatments, alternatives] = res;
+
+    return vaccines.concat(treatments).concat(alternatives);
+  });
 }
 
 function getCount(table, countries) {
