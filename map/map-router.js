@@ -5,17 +5,14 @@ const db = require('../data/db-config.js');
 router.get('/', async (req, res) => {
   try {
     const vaccines = await db('vaccines').select(
-      'countries',
       'country_codes as id'
     );
 
     const treatments = await db('treatments').select(
-      'countries',
       'country_codes as id'
     );
 
     const alternatives = await db('alternatives').select(
-      'countries',
       'country_codes as id'
     );
 
