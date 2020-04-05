@@ -20,21 +20,9 @@ router.get('/totals', async (req, res) => {
 
     for (let i = 0; i < 5; i++) {
       // Make a database count request for each of these,
-      vaccines[i] = await db.getCountPhase(
-        'vaccines',
-        countries.toLowerCase(),
-        i
-      );
-      treatments[i] = await db.getCountPhase(
-        'treatments',
-        countries.toLowerCase(),
-        i
-      );
-      alternatives[i] = await db.getCountPhase(
-        'alternatives',
-        countries.toLowerCase(),
-        i
-      );
+      vaccines[i] = await db.getCountPhase('vaccines', countries, i);
+      treatments[i] = await db.getCountPhase('treatments', countries, i);
+      alternatives[i] = await db.getCountPhase('alternatives', countries, i);
     }
 
     const totals = {
@@ -68,7 +56,7 @@ router.get('/trials', (req, res) => {
     res.status(400).json({ message: 'No valid trial type specified.' });
   }
 
-  db.findBy(type, countries.toLowerCase())
+  db.findBy(type, countries)
     .then((info) => {
       const results = {};
 
