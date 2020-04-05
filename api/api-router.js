@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const db = require('../data/model.js');
+const { pagination } = require('../utils/helpers.js');
 
 const mapRouter = require('../map/map-router.js');
 
@@ -46,7 +47,7 @@ router.get('/trials', (req, res) => {
   const page = parseInt(req.query.page, 10);
   const limit = parseInt(req.query.limit, 10);
 
-  if (type !== 'vaccines' && type !== 'treatments' && type !== 'alternatives') {
+  if (type !== 'vaccines' && type !== 'treatments' && type !== 'alternatives' && type !== undefined) {
     res.status(400).json({ message: 'No valid trial type specified.' });
   }
 
