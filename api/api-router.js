@@ -74,6 +74,10 @@ router.get('/trials', (req, res) => {
             limit,
           };
         }
+
+        // Create a "count" field
+        results.count = info.length;
+
         // Extract the requested section of the results
         results.results = info.slice(startIndex, endIndex);
       } else {
