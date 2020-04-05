@@ -37,8 +37,14 @@ router.get('/totals', async (req, res) => {
   }
 });
 
+// GET /api/trials
+//   Required queries: type=[vaccines|treatments|alternatives]
+//   Optional queries: countries=[country_name]
+//   Optional pagination: page=x & limit=y
 router.get('/trials', (req, res) => {
-  const { type, countries, max, page } = req.query;
+  const { type, countries } = req.query;
+  const page = parseInt(req.query.page, 10);
+  const limit = parseInt(req.query.limit, 10);
 
   if (type !== 'vaccines' && type !== 'treatments' && type !== 'alternatives') {
     res.status(400).json({ message: 'No valid trial type specified.' });
@@ -46,7 +52,34 @@ router.get('/trials', (req, res) => {
 
   db.findBy(type, countries)
     .then((info) => {
-      res.status(200).json(info);
+      const results = {};
+
+      if (limit > 0 && page > 0) {
+        // Apply pagination. Find start and end indices.
+        const startIndex = (page - 1) * limit;
+        const endIndex = page * limit;
+
+        // Create a "previous" object, if available
+        if (startIndex > 0) {
+          results.previous = {
+            page: page - 1,
+            limit,
+          };
+        }
+        // Create a "next" object, if available
+        if (endIndex < info.length) {
+          results.next = {
+            page: page + 1,
+            limit,
+          };
+        }
+        // Extract the requested section of the results
+        results.results = info.slice(startIndex, endIndex);
+      } else {
+        // No pagination. Send all the results.
+        results.results = info;
+      }
+      res.status(200).json(results);
     })
     .catch((err) => {
       res.status(500).json(err.message);
