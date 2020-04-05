@@ -37,8 +37,12 @@ router.get('/totals', async (req, res) => {
   }
 });
 
+// GET /api/trials
+//  Required query
+//
+//
 router.get('/trials', (req, res) => {
-  const { type, countries, max, page } = req.query;
+  const { type, countries, page, limit } = req.query;
 
   if (type !== 'vaccines' && type !== 'treatments' && type !== 'alternatives') {
     res.status(400).json({ message: 'No valid trial type specified.' });
@@ -46,7 +50,16 @@ router.get('/trials', (req, res) => {
 
   db.findBy(type, countries)
     .then((info) => {
-      res.status(200).json(info);
+      let results;
+      if (page !== undefined && limit !== undefined) {
+        const startIndex = (page - 1) * limit;
+        const endIndex = page * limit;
+        console.log(page, limit, startIndex, endIndex);
+        results = info.slice(startIndex, endIndex);
+      } else {
+        results = info;
+      }
+      res.status(200).json(results);
     })
     .catch((err) => {
       res.status(500).json(err.message);
