@@ -5,66 +5,72 @@ const db = require('../data/db-config.js');
 router.get('/', async (req, res) => {
   try {
     const vaccines = await db('vaccines').select(
-      'country_codes as id'
+      'countries as id',
+      'country_codes'
     );
 
     const treatments = await db('treatments').select(
-      'country_codes as id'
+      'countries as id',
+      'country_codes'
     );
 
     const alternatives = await db('alternatives').select(
-      'country_codes as id'
+      'countries as id',
+      'country_codes'
     );
 
     let mapValues = new Map();
 
     vaccines.forEach((trial) => {
-      if (mapValues.has(trial.id)) {
-        const entry = mapValues.get(trial.id);
+      trial.id.split(',').forEach((country) => {
+        if (mapValues.has(country)) {
+          const entry = mapValues.get(country);
 
-        mapValues.set(trial.id, { ...entry, value: entry.value + 1 });
-      } else if (trial.id !== null && trial.id.length === 3) {
-        // currently: do not count if country is null or multiple
-        mapValues.set(trial.id, {
-          value: 1,
-          country: trial.countries,
-          id: trial.id,
-        });
-      }
+          mapValues.set(country, { ...entry, value: entry.value + 1 });
+        } else {
+          mapValues.set(country, {
+            value: 1,
+            id: country,
+          });
+        }
+      });
     });
 
     treatments.forEach((trial) => {
-      if (mapValues.has(trial.id)) {
-        const entry = mapValues.get(trial.id);
+      trial.id.split(',').forEach((country) => {
+        if (mapValues.has(country)) {
+          const entry = mapValues.get(country);
 
-        mapValues.set(trial.id, { ...entry, value: entry.value + 1 });
-      } else if (trial.id !== null && trial.id.length === 3) {
-        // currently: do not count if country is null or multiple
-        mapValues.set(trial.id, {
-          value: 1,
-          country: trial.countries,
-          id: trial.id,
-        });
-      }
+          mapValues.set(country, { ...entry, value: entry.value + 1 });
+        } else {
+          mapValues.set(country, {
+            value: 1,
+            id: country,
+          });
+        }
+      });
     });
 
     alternatives.forEach((trial) => {
-      if (mapValues.has(trial.id)) {
-        const entry = mapValues.get(trial.id);
+      trial.id.split(',').forEach((country) => {
+        if (mapValues.has(country)) {
+          const entry = mapValues.get(country);
 
-        mapValues.set(trial.id, { ...entry, value: entry.value + 1 });
-      } else if (trial.id !== null && trial.id.length === 3) {
-        // currently: do not count if country is null or multiple
-        mapValues.set(trial.id, {
-          value: 1,
-          country: trial.countries,
-          id: trial.id,
-        });
-      }
+          mapValues.set(country, { ...entry, value: entry.value + 1 });
+        } else {
+          mapValues.set(country, {
+            value: 1,
+            id: country,
+          });
+        }
+      });
     });
 
+    mapValues.delete('no country given');
     // Map.keys() returns an Iterator object which can be converted to an Array
-    res.status(200).json(Array.from(mapValues.values()));
+    const data = Array.from(mapValues.values());
+
+    res.status(200).json(data);
   } catch ({ message }) {
     res.status(500).json({ error: 'Failed to get trials.', message });
   }
