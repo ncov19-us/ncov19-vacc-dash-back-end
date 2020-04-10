@@ -31,6 +31,7 @@ router.get('/', async (req, res) => {
           mapValues.set(country, {
             value: 1,
             id: country,
+            country_codes: trial.country_codes
           });
         }
       });
@@ -46,6 +47,7 @@ router.get('/', async (req, res) => {
           mapValues.set(country, {
             value: 1,
             id: country,
+            country_codes: trial.country_codes
           });
         }
       });
@@ -61,14 +63,29 @@ router.get('/', async (req, res) => {
           mapValues.set(country, {
             value: 1,
             id: country,
+            country_codes: trial.country_codes
           });
         }
       });
     });
 
     mapValues.delete('no country given');
+
+    const capitalize = word => {
+      let words = word.split(' ');
+      words = words.map(word => word.charAt(0).toUpperCase() + word.slice(1));
+      words = words.join(' ');
+      return words;
+    };
+
     // Map.keys() returns an Iterator object which can be converted to an Array
-    const data = Array.from(mapValues.values());
+    let data = Array.from(mapValues.values());
+    
+    data = data.map((country) => {
+      country.id = capitalize(country.id);
+      return country;
+    });
+
 
     res.status(200).json(data);
   } catch ({ message }) {
