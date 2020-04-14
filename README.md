@@ -1,11 +1,15 @@
-# [SARS-CoV2 Vaccine and COVID-19 Treatments R&D Dashboard](https://vaccine.ncov19.us)
+# [nCOV19.US Vaccine/Treatments R&D Tracker](https://vaccine.ncov19.us)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![CodeFactor](https://www.codefactor.io/repository/github/ncov19-us/ncov19-vacc-dash-back-end/badge)](https://www.codefactor.io/repository/github/ncov19-us/ncov19-vacc-dash-back-end)
 
 ## 1️⃣ Description
 
-Vaccine/treatment trial progress tracker for the SARS-nCOV-2 virus and COVID-19 research and clinical trials happening all over the world.
+Vaccine/treatment trial API for the SARS-nCOV-2 virus and COVID-19 research and clinical trials happening all over the world.
+
+Data Sources:
+- [WHO ICTRP](https://www.who.int/ictrp/en/) 
+- [ClinicialTrials.gov](https://clinicaltrials.gov/)
 
 ## 2️⃣ Tech Stack 
 
