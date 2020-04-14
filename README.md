@@ -1,33 +1,63 @@
-# nCOV19 Vaccine Dashboard Backend
+# [SARS-CoV2 Vaccine and COVID-19 Treatments R&D Dashboard](https://vaccine.ncov19.us)
 
-### 1️⃣ About this app
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![CodeFactor](https://www.codefactor.io/repository/github/ncov19-us/ncov19-vacc-dash-back-end/badge)](https://www.codefactor.io/repository/github/ncov19-us/ncov19-vacc-dash-back-end)
 
-Vaccine/treatment trial progress tracker for the SARS-nCOV-2 virus and COVID-19.
+## 1️⃣ Description
 
-Part of the [ncov19.us](https://ncov19.us) project.
+Vaccine/treatment trial progress tracker for the SARS-nCOV-2 virus and COVID-19 research and clinical trials happening all over the world.
 
-### 2️⃣ Getting started
+## 2️⃣ Tech Stack 
 
-To get the server running locally:
+- Node.js/express
+- Postgres database
 
-- Clone this repo
-- `npm i` to install all required dependencies
-- `npm server` to start the local server
-- `npm test` to start server using testing environment
+## 3️⃣ Contributors
 
-### 3️⃣ Contributors
+[<img src="https://github.com/favicon.ico" width="20"> ](https://github.com/ljh-c)    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   **[Lillian Cha](https://github.com/ljh-c)**    |    Maintainer | Core Dev
 
-### 4️⃣ Tech Stack
+[<img src="https://github.com/favicon.ico" width="20"> ](https://github.com/danimal-johnson)    [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="20"> ](https://www.linkedin.com/in/dan-johnson-489b151/)    [<img src="https://twitter.com/favicon.ico" width="20">](https://twitter.com/)    **[Dan Johnson](https://github.com/danimal-johnson)**    |    Maintainer | Core Dev
 
-### 5️⃣ Environment Variables
+## 4️⃣ Getting started
+
+### Installation
+
+1. Clone/Fork the front end repository to your local machine: `https://github.com/ncov19-us/ncov19-vacc-dash-front-end.git`
+2.  `npm install` to install all required dependencies
+3.  `npm start` to start the local server
+
+### Testing
+
+Run `npm test` to launch the test runner. Tests are written with Jest and React Testing Library.
 
 ---
 
-## 6️⃣ Contributing
+## 5️⃣ Contributing
 
-When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
+### Git Workflow
 
-Please note we have a [code of conduct](./CODE_OF_CONDUCT.md). Please follow it in all your interactions with the project.
+- Our commits use a style called **[semantic commits](https://seesparkbox.com/foundry/semantic_commit_messages)**. 
+- Pick a task to work on from the Github issues or Trello board, assign your name to it via the top right of the Trello card, and confirm that no one is already working on this task, or another task that is likely to cause merge issues with yours.
+
+```sh
+git clone https://github.com/ncov19-us/ncov19-vacc-dash-front-end.git
+git checkout staging
+git checkout -b <your-feature-branch>
+```
+Commit your work using semantic commits structure.
+
+When done:
+```sh
+git checkout staging
+git pull  # sync your local feature branch with origin/github
+git checkout <your-feature-branch>
+git rebase staging  # merge your branch w/ feature-branch
+git commit
+```
+
+Push your branch: `git push origin <your-feature-branch>`. Then open a pull request from your working branch into `staging` for review.
+
+Please note we have a [CODE OF CONDUCT](./CODE_OF_CONDUCT.md). Please follow it in all your interactions with the project.
 
 ## Issue/Bug Request
 
