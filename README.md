@@ -26,9 +26,9 @@ Data Sources:
 
 ### Installation
 
-1. Clone/Fork the front end repository to your local machine: `https://github.com/ncov19-us/ncov19-vacc-dash-front-end.git`
-2.  `npm install` to install all required dependencies
-3.  `npm start` to start the local server
+1. Clone/Fork the back end repository to your local machine: `https://github.com/ncov19-us/ncov19-vacc-dash-back-end.git`
+2. `npm install` to install all required dependencies
+3. `npm run start` or `npm run server` to start the local server
 
 ### Testing
 
@@ -44,22 +44,22 @@ Run `npm test` to launch the test runner. Tests are written with Jest and React 
 - Pick a task to work on from the Github issues or Trello board, assign your name to it via the top right of the Trello card, and confirm that no one is already working on this task, or another task that is likely to cause merge issues with yours.
 
 ```sh
-git clone https://github.com/ncov19-us/ncov19-vacc-dash-front-end.git
-git checkout staging
+git clone https://github.com/ncov19-us/ncov19-vacc-dash-back-end.git
+git checkout staging-branch
 git checkout -b <your-feature-branch>
 ```
 Commit your work using semantic commits structure.
 
 When done:
 ```sh
-git checkout staging
+git checkout staging-branch
 git pull  # sync your local feature branch with origin/github
 git checkout <your-feature-branch>
-git rebase staging  # merge your branch w/ feature-branch
+git rebase staging-branch  # merge your branch w/ feature-branch
 git commit
 ```
 
-Push your branch: `git push origin <your-feature-branch>`. Then open a pull request from your working branch into `staging` for review.
+Push your branch: `git push origin <your-feature-branch>`. Then open a pull request from your working branch into `staging-branch` for review.
 
 Please note we have a [CODE OF CONDUCT](./CODE_OF_CONDUCT.md). Please follow it in all your interactions with the project.
 
