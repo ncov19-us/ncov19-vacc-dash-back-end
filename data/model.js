@@ -10,7 +10,7 @@ module.exports = {
 function findBy(table, countries) {
   if (table) {
     if (countries) {
-      return db(table).where({ countries });
+      return db(table).where('countries', 'like', `%${countries}%`);
     }
     return db(table);
   }
@@ -19,7 +19,9 @@ function findBy(table, countries) {
   let tables = [db('vaccines'), db('treatments'), db('alternatives')];
 
   if (table === undefined && countries) {
-    tables = tables.map((table) => table.where({ countries }));
+    tables = tables.map((table) =>
+      table.where('countries', 'like', `%${countries}%`)
+    );
   }
 
   return Promise.all(tables).then((res) => {
@@ -29,6 +31,7 @@ function findBy(table, countries) {
   });
 }
 
+// this function is not currently used
 function getCount(table, countries) {
   if (table) {
     if (countries) {
@@ -44,13 +47,14 @@ function getCountPhase(table, countries, phase) {
     if (countries) {
       if (phase === 0) {
         return db(table)
-          .where({ countries: countries })
+          .where('countries', 'like', `%${countries}%`)
           .whereNull('phase_num')
           .count('* as num')
           .first();
       }
       return db(table)
-        .where({ countries: countries, phase_num: phase })
+        .where('countries', 'like', `%${countries}%`)
+        .andWhere({ phase_num: phase })
         .count('* as num')
         .first();
     }
