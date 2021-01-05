@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/ncov19-us/ncov19-vacc-dash-back-end#readme",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
